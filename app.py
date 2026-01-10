@@ -5,6 +5,7 @@ import datetime
 
 st.set_page_config(page_title="保育士掲示板", layout="centered")
 st.title("☕ ほっと一息 掲示板")
+st.sidebar.link_button("📝 書類作成に戻る", "https://hoiku-shido-keikaku-rwzgqwaigedgclhujzem6x.streamlit.app/")
 
 # --- 1. スプレッドシートへの接続 ---
 # Secretsに書いた情報を使って接続します
