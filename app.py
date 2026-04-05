@@ -4,6 +4,13 @@ import pandas as pd
 import datetime
 import streamlit.components.v1 as components
 
+# --- 1. 広告コードの準備 ---
+# サイドバー用（はらぺこあおむしなど）
+ad_sidebar = """<table border="0" cellpadding="0" cellspacing="0"><tr><td><div style="border:1px solid #95A5A6;border-radius:.75rem;background-color:#FFFFFF;width:280px;margin:0px;padding:5px;text-align:center;overflow:hidden;"><table><tr><td style="width:128px"><a href="https://hb.afl.rakuten.co.jp/ichiba/13f1038a.0b9b3333.13f1038b.1111a3c1/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fbook%2F768643%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIxMjh4MTI4IiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D" target="_blank" rel="nofollow sponsored noopener" style="word-wrap:break-word;"><img src="https://hbb.afl.rakuten.co.jp/hgb/13f1038a.0b9b3333.13f1038b.1111a3c1/?me_id=1213310&item_id=10547021&pc=https%3A%2F%2Fthumbnail.image.rakuten.co.jp%2F%400_mall%2Fbook%2Fcabinet%2F9516%2F9784062619516.jpg%3F_ex%3D128x128&s=128x128&t=picttext" border="0" style="margin:2px" alt="[商品価格に関しましては、リンクが作成された時点と現時点で情報が変更されている場合がございます。]" title="[商品価格に関しましては、リンクが作成された時点と現時点で情報が変更されている場合がございます。]"></a></td><td style="vertical-align:top;width:136px;display: block;"><p style="font-size:12px;line-height:1.4em;text-align:left;margin:0px;padding:2px 6px;word-wrap:break-word"><a href="https://hb.afl.rakuten.co.jp/ichiba/13f1038a.0b9b3333.13f1038b.1111a3c1/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fbook%2F768643%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIxMjh4MTI4IiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D" target="_blank" rel="nofollow sponsored noopener" style="word-wrap:break-word;">にじいろのさかな （にじいろのさかなブック　世界の絵本（新）） [ マーカス・フィスター ]</a><br><span >価格：1,980円（税込、送料無料)</span> <span style="color:#BBB">(2026/4/5時点)</span></p></td></tr></table></div><br><p style="color:#000000;font-size:12px;line-height:1.4em;margin:5px;word-wrap:break-word"></p></td></tr></table>"""
+
+# メイン画面上部用（エプロンや新作絵本など）
+ad_main_top = """（別の楽天のコード：widthを100%に書き換えたもの）"""
+
 # ★ メイン画面上部の広告
 with st.container():
     st.caption("PR: 【新年度】読み聞かせに迷ったら")
@@ -15,12 +22,6 @@ st.set_page_config(page_title="保育士掲示板", layout="centered")
 st.title("☕ ほっと一息 掲示板")
 
 
-# --- 1. 広告コードの準備 ---
-# サイドバー用（はらぺこあおむしなど）
-ad_sidebar = """<table border="0" cellpadding="0" cellspacing="0"><tr><td><div style="border:1px solid #95A5A6;border-radius:.75rem;background-color:#FFFFFF;width:280px;margin:0px;padding:5px;text-align:center;overflow:hidden;"><table><tr><td style="width:128px"><a href="https://hb.afl.rakuten.co.jp/ichiba/13f1038a.0b9b3333.13f1038b.1111a3c1/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fbook%2F768643%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIxMjh4MTI4IiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D" target="_blank" rel="nofollow sponsored noopener" style="word-wrap:break-word;"><img src="https://hbb.afl.rakuten.co.jp/hgb/13f1038a.0b9b3333.13f1038b.1111a3c1/?me_id=1213310&item_id=10547021&pc=https%3A%2F%2Fthumbnail.image.rakuten.co.jp%2F%400_mall%2Fbook%2Fcabinet%2F9516%2F9784062619516.jpg%3F_ex%3D128x128&s=128x128&t=picttext" border="0" style="margin:2px" alt="[商品価格に関しましては、リンクが作成された時点と現時点で情報が変更されている場合がございます。]" title="[商品価格に関しましては、リンクが作成された時点と現時点で情報が変更されている場合がございます。]"></a></td><td style="vertical-align:top;width:136px;display: block;"><p style="font-size:12px;line-height:1.4em;text-align:left;margin:0px;padding:2px 6px;word-wrap:break-word"><a href="https://hb.afl.rakuten.co.jp/ichiba/13f1038a.0b9b3333.13f1038b.1111a3c1/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fbook%2F768643%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIxMjh4MTI4IiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D" target="_blank" rel="nofollow sponsored noopener" style="word-wrap:break-word;">にじいろのさかな （にじいろのさかなブック　世界の絵本（新）） [ マーカス・フィスター ]</a><br><span >価格：1,980円（税込、送料無料)</span> <span style="color:#BBB">(2026/4/5時点)</span></p></td></tr></table></div><br><p style="color:#000000;font-size:12px;line-height:1.4em;margin:5px;word-wrap:break-word"></p></td></tr></table>"""
-
-# メイン画面上部用（エプロンや新作絵本など）
-ad_main_top = """（別の楽天のコード：widthを100%に書き換えたもの）"""
 
 # --- 2. サイドバーの表示 ---
 with st.sidebar:
