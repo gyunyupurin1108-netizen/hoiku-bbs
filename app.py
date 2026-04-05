@@ -15,27 +15,24 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 df = conn.read(ttl=0)
 
 # --- 2. 投稿フォーム ---
-# --- 2. 投稿フォーム ---
-with st.form(key="bbs_form"):
+# clear_on_submit=True を追加することで、投稿後に中身を自動で消去します
+with st.form(key="bbs_form", clear_on_submit=True):
     name = st.text_input("ニックネーム")
-    
-    # ▼▼ 追加①：パスワード入力欄 ▼▼
     admin_pass = st.text_input("管理者パスワード（※管理人のみ入力）", type="password")
-    
     message = st.text_area("メッセージ")
     submit = st.form_submit_button("投稿する")
 
     if submit:
         if not name or not message:
             st.error("名前とメッセージを入力してください")
-            
-        # ▼▼ 追加②：名前が「管理人」で、かつパスワードが間違っている場合 ▼▼
-        elif name == "管理人" and admin_pass != "yktk591108": # ← "hoiku2026"を好きなパスワードに変えてください
+        elif name == "管理人" and admin_pass != "hoiku2026":
             st.error("🚨 パスワードが違います。管理人以外は『管理人』という名前を使えません。")
-            
         else:
-            # 現在時刻
-            now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M")
+            # --- 日本時間（JST）を取得する処理 ---
+            # UTC（世界標準時）に9時間を加算して日本時間にします
+            t_delta = datetime.timedelta(hours=9)
+            JST = datetime.timezone(t_delta, 'JST')
+            now = datetime.datetime.now(JST).strftime("%Y/%m/%d %H:%M")
             
             # 新しいデータをデータフレームに追加
             new_data = pd.DataFrame(
@@ -45,13 +42,12 @@ with st.form(key="bbs_form"):
             # 既存のデータと結合
             updated_df = pd.concat([new_data, df], ignore_index=True)
             
-            # スプレッドシートを更新（書き込み）
+            # スプレッドシートを更新
             conn.update(data=updated_df)
             
             st.success("投稿しました！")
-            # 画面をリロードして投稿を表示させる
+            # 画面をリロードして最新の投稿を表示させる
             st.rerun()
-            
            
 # --- 3. 投稿一覧の表示 ---
 st.divider()
