@@ -25,7 +25,7 @@ with st.form(key="bbs_form", clear_on_submit=True):
     if submit:
         if not name or not message:
             st.error("名前とメッセージを入力してください")
-        elif name == "管理人" and admin_pass != "hoiku2026":
+        elif name == "管理人" and admin_pass != "yktk591108":
             st.error("🚨 パスワードが違います。管理人以外は『管理人』という名前を使えません。")
         else:
             # --- 日本時間（JST）を取得する処理 ---
