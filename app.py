@@ -15,14 +15,24 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 df = conn.read(ttl=0)
 
 # --- 2. 投稿フォーム ---
+# --- 2. 投稿フォーム ---
 with st.form(key="bbs_form"):
     name = st.text_input("ニックネーム")
+    
+    # ▼▼ 追加①：パスワード入力欄 ▼▼
+    admin_pass = st.text_input("管理者パスワード（※管理人のみ入力）", type="password")
+    
     message = st.text_area("メッセージ")
     submit = st.form_submit_button("投稿する")
 
     if submit:
         if not name or not message:
             st.error("名前とメッセージを入力してください")
+            
+        # ▼▼ 追加②：名前が「管理人」で、かつパスワードが間違っている場合 ▼▼
+        elif name == "管理人" and admin_pass != "yktk591108": # ← "hoiku2026"を好きなパスワードに変えてください
+            st.error("🚨 パスワードが違います。管理人以外は『管理人』という名前を使えません。")
+            
         else:
             # 現在時刻
             now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M")
@@ -41,7 +51,8 @@ with st.form(key="bbs_form"):
             st.success("投稿しました！")
             # 画面をリロードして投稿を表示させる
             st.rerun()
-
+            
+           
 # --- 3. 投稿一覧の表示 ---
 st.divider()
 st.subheader("みんなの声")
