@@ -14,7 +14,7 @@ ad_main_top = """<table border="0" cellpadding="0" cellspacing="0"><tr><td><div 
 # ★ メイン画面上部の広告
 with st.container():
     st.caption("PR: 【新年度】読み聞かせに迷ったら")
-    components.html(ad_main_top, height=250)
+    components.html(ad_main_top, height=200)
 
 st.divider()
 
